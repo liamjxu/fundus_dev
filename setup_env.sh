@@ -1,0 +1,10 @@
+pip install lxml
+pip install more_itertools
+pip install cssselect
+pip install validators
+pip install requests
+pip install dill
+pip install tqdm
+pip install langdetect
+pip install chardet
+pip install fastwarc

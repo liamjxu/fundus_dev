@@ -232,17 +232,17 @@ class CCNewsSource:
 
                 publisher_domain: str = urlparse(target_url).netloc
 
-                if publisher_domain not in self._publisher_mapping:
-                    continue
+                # if publisher_domain not in self._publisher_mapping:
+                #     continue
 
-                publisher = self._publisher_mapping[publisher_domain]
+                # publisher = self._publisher_mapping[publisher_domain]
 
-                if publisher.url_filter is not None and publisher.url_filter(target_url):
-                    logger.debug(
-                        f"Skipped WARC record with target URI {target_url!r} because of "
-                        f"publisher specific URL filter"
-                    )
-                    continue
+                # if publisher.url_filter is not None and publisher.url_filter(target_url):
+                #     logger.debug(
+                #         f"Skipped WARC record with target URI {target_url!r} because of "
+                #         f"publisher specific URL filter"
+                #     )
+                #     continue
 
                 if (content := extract_content(warc_record)) is None:
                     continue
@@ -253,7 +253,8 @@ class CCNewsSource:
                     content=content,
                     crawl_date=warc_record.record_date,
                     source_info=WarcSourceInfo(
-                        publisher=publisher.publisher_name,
+                        # publisher=publisher.publisher_name,
+                        publisher=publisher_domain,
                         warc_path=self.warc_path,
                         warc_headers=dict(warc_record.headers),
                         http_headers=dict(warc_record.http_headers),

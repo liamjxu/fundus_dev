@@ -219,13 +219,17 @@ class CrawlerBase(ABC):
         for article in self._build_article_iterator(
             tuple(fitting_publishers), error_handling, build_extraction_filter(), url_filter
         ):
-            url_without_query_parameters = remove_query_parameters_from_url(article.html.responded_url)
-            if not only_unique or url_without_query_parameters not in response_cache:
-                response_cache.add(url_without_query_parameters)
-                article_count += 1
-                yield article
+            article_count += 1
+            yield article
             if article_count == max_articles:
                 break
+            # url_without_query_parameters = remove_query_parameters_from_url(article.html.responded_url)
+            # if not only_unique or url_without_query_parameters not in response_cache:
+            #     response_cache.add(url_without_query_parameters)
+            #     article_count += 1
+            #     yield article
+            # if article_count == max_articles:
+            #     break
 
         session_handler.close_current_session()
 
@@ -333,7 +337,7 @@ class CCNewsCrawler(CrawlerBase):
     def __init__(
         self,
         *publishers: Publisher,
-        start: datetime = datetime(2016, 8, 1),
+        start: datetime = datetime(2024, 3, 1),
         end: datetime = datetime.now(),
         processes: int = -1,
         server_address: str = "https://data.commoncrawl.org/",
